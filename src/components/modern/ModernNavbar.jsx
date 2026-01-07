@@ -16,6 +16,15 @@ const ModernNavbar = ({ isLoggedIn, onLogout }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Normalize pathname by removing basename for comparison
+  const normalizePath = (pathname) => {
+    const basename = '/EV-CharFinder-New';
+    if (pathname.startsWith(basename)) {
+      return pathname.slice(basename.length) || '/';
+    }
+    return pathname;
+  };
+
   const navItems = [
     { path: '/', label: 'Home' },
     { path: '/search', label: 'Find Stations' },
@@ -44,7 +53,8 @@ const ModernNavbar = ({ isLoggedIn, onLogout }) => {
 
         <div className="navbar-links">
           {navItems.map((item) => {
-            const isActive = location.pathname === item.path;
+            const normalizedPath = normalizePath(location.pathname);
+            const isActive = normalizedPath === item.path || (item.path !== '/' && normalizedPath.startsWith(item.path));
             return (
               <Link
                 key={item.path}

@@ -33,6 +33,7 @@ function App() {
 
   return (
     <Router
+      basename="/EV-CharFinder-New"
       future={{
         v7_startTransition: true,
         v7_relativeSplatPath: true,
