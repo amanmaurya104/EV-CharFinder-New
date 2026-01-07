@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Route, MapPin, Navigation, X, Zap, Clock, Battery, TrendingUp, Locate } from 'lucide-react';
+import MapLoading from '../../components/modern/MapLoading';
 import './ModernEVRouting.css';
 
 const ModernEVRouting = () => {
@@ -14,10 +15,11 @@ const ModernEVRouting = () => {
   const [isCalculating, setIsCalculating] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [isGettingLocation, setIsGettingLocation] = useState(false);
+  const [mapLoaded, setMapLoaded] = useState(false);
 
   useEffect(() => {
     const loadTomTom = () => {
-      if (window.tt) {
+      if (window.tt && window.tt.map) {
         initializeMap();
       } else {
         const link = document.createElement('link');
@@ -69,6 +71,13 @@ const ModernEVRouting = () => {
         style: 'tomtom://vector/1/basic-main',
         center: [0, 0],
         zoom: 2
+      });
+
+      // Wait for map to fully load
+      mapInstance.current.on('load', () => {
+        setTimeout(() => {
+          setMapLoaded(true);
+        }, 500);
       });
     };
 
@@ -461,6 +470,9 @@ const ModernEVRouting = () => {
 
   return (
     <div className="modern-ev-routing">
+      <AnimatePresence>
+        {!mapLoaded && <MapLoading />}
+      </AnimatePresence>
       <div id="map" ref={mapRef} className="map-container"></div>
       
       {/* Side Panel */}

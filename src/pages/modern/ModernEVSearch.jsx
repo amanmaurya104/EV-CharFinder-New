@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, MapPin, Zap, X, Navigation, Clock, Battery, Locate } from 'lucide-react';
+import MapLoading from '../../components/modern/MapLoading';
 import './ModernEVSearch.css';
 
 const ModernEVSearch = () => {
@@ -15,6 +16,7 @@ const ModernEVSearch = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [isGettingLocation, setIsGettingLocation] = useState(false);
   const [currentLocation, setCurrentLocation] = useState(null);
+  const [mapLoaded, setMapLoaded] = useState(false);
 
   useEffect(() => {
     const loadTomTom = () => {
@@ -59,6 +61,13 @@ const ModernEVSearch = () => {
         style: 'tomtom://vector/1/basic-main',
         center: [0, 0],
         zoom: 2
+      });
+
+      // Wait for map to fully load
+      mapInstance.current.on('load', () => {
+        setTimeout(() => {
+          setMapLoaded(true);
+        }, 500);
       });
     };
 
@@ -265,6 +274,9 @@ const ModernEVSearch = () => {
 
   return (
     <div className="modern-ev-search">
+      <AnimatePresence>
+        {!mapLoaded && <MapLoading />}
+      </AnimatePresence>
       <div id="map" ref={mapRef} className="map-container"></div>
       
       {/* Side Panel */}
