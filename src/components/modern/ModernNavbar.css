@@ -188,7 +188,28 @@
   background: var(--bg-tertiary);
 }
 
+/* Responsive Design */
+@media (max-width: 968px) {
+  .navbar-links {
+    gap: var(--space-sm);
+  }
+
+  .nav-link {
+    font-size: 0.9rem;
+    padding: var(--space-xs) var(--space-sm);
+  }
+}
+
 @media (max-width: 768px) {
+  .modern-navbar {
+    padding: var(--space-sm) 0;
+  }
+
+  .navbar-container {
+    padding: 0 var(--space-md);
+    gap: var(--space-md);
+  }
+
   .navbar-links {
     display: none;
   }
@@ -197,8 +218,46 @@
     display: flex;
   }
 
+  .brand-logo {
+    font-size: 1.25rem;
+  }
+
+  .logo-icon {
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 640px) {
   .navbar-container {
-    padding: 0 var(--space-md);
+    padding: 0 var(--space-sm);
+  }
+
+  .brand-logo {
+    font-size: 1.1rem;
+    gap: var(--space-xs);
+  }
+
+  .logo-icon {
+    font-size: 1.5rem;
+  }
+
+  .mobile-menu {
+    padding: var(--space-sm);
+  }
+
+  .mobile-nav-link {
+    padding: var(--space-sm) var(--space-md);
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .brand-logo {
+    font-size: 1rem;
+  }
+
+  .logo-text {
+    font-size: 0.9rem;
   }
 }
 

@@ -52,13 +52,67 @@
   transform: translateY(-2px);
 }
 
+/* Responsive Design */
+@media (max-width: 968px) {
+  .login-page {
+    padding: var(--space-lg);
+    padding-top: 100px;
+  }
+
+  .login-container {
+    max-width: 450px;
+  }
+
+  .login-card {
+    padding: 2.5rem;
+  }
+}
+
 @media (max-width: 768px) {
+  .login-page {
+    padding: var(--space-md);
+    padding-top: 90px;
+  }
+
+  .login-container {
+    max-width: 100%;
+  }
+
   .login-card {
     padding: 2rem;
+    border-radius: 16px;
   }
 
   .login-card h1 {
     font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .login-page {
+    padding: var(--space-sm);
+    padding-top: 80px;
+  }
+
+  .login-card {
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+
+  .login-card h1 {
+    font-size: 1.75rem;
+    margin-bottom: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-card {
+    padding: 1.25rem;
+  }
+
+  .login-card h1 {
+    font-size: 1.5rem;
   }
 }
 

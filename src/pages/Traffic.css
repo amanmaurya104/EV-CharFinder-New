@@ -182,13 +182,116 @@ input:checked + .toggle:before {
   transition: opacity 2s;
 }
 
+/* Responsive Design */
+@media (max-width: 968px) {
+  .sidebar {
+    max-width: 320px;
+  }
+
+  .traffic-page {
+    padding-top: 80px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    max-width: calc(100% - 20px);
+    top: 80px;
+    left: 10px;
+    right: 10px;
+    width: auto;
+  }
+
+  .show-sidebar-btn {
+    top: 90px;
+    left: 10px;
+  }
+
+  .label {
+    font-size: 0.95rem;
+  }
+
+  .show-traffic-layers {
+    font-size: 0.85rem;
+  }
+
+  .btn {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .legend-font {
+    font-size: 0.8rem;
+  }
+}
+
 @media (max-width: 600px) {
   .sidebar {
     max-width: calc(100% - 20px);
+    padding: 8px;
+  }
+
+  .show-sidebar-btn {
+    padding: 8px 12px;
+    font-size: 0.85rem;
   }
 
   .home-button {
     display: block;
+    bottom: 15px;
+    right: 15px;
+    padding: 8px;
+  }
+
+  .home-button img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .label {
+    font-size: 0.9rem;
+  }
+
+  .btn {
+    font-size: 0.85rem;
+    padding: 8px;
+  }
+
+  #popup-wrapper {
+    top: 70px;
+    right: 10px;
+    left: 10px;
+    max-width: calc(100% - 20px);
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    padding: 6px;
+  }
+
+  .show-sidebar-btn {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+
+  .home-button {
+    bottom: 10px;
+    right: 10px;
+    padding: 6px;
+  }
+
+  .home-button img {
+    width: 28px;
+    height: 28px;
+  }
+
+  .label {
+    font-size: 0.85rem;
+  }
+
+  .legend-font {
+    font-size: 0.75rem;
   }
 }
 

@@ -26,6 +26,9 @@
   z-index: 100;
   overflow-y: auto;
   border-right: 1px solid var(--border-secondary);
+  background: var(--bg-secondary);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
 }
 
 .sidebar-header {
@@ -357,14 +360,179 @@
   box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
 }
 
+/* Responsive Design */
+@media (max-width: 968px) {
+  .search-sidebar {
+    width: 350px;
+  }
+
+  .sidebar-toggle {
+    top: 90px;
+  }
+}
+
 @media (max-width: 768px) {
+  .modern-ev-search {
+    padding-top: 70px;
+  }
+
   .search-sidebar {
     width: 100%;
-    height: calc(100vh - 80px);
+    height: calc(100vh - 70px);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .search-sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-header {
+    padding: var(--space-md);
+  }
+
+  .sidebar-header h2 {
+    font-size: 1.25rem;
+  }
+
+  .search-form {
+    padding: var(--space-md);
+  }
+
+  .modern-input {
+    font-size: 0.95rem;
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .search-btn {
+    padding: var(--space-sm) var(--space-md);
+    font-size: 0.95rem;
+  }
+
+  .stations-list {
+    padding: var(--space-md);
+  }
+
+  .station-card {
+    padding: var(--space-sm);
+    gap: var(--space-sm);
+  }
+
+  .station-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .station-info h4 {
+    font-size: 0.95rem;
+  }
+
+  .station-address {
+    font-size: 0.8rem;
+  }
+
+  .station-meta {
+    font-size: 0.8rem;
   }
 
   .station-drawer {
     max-height: 70vh;
+  }
+
+  .drawer-header {
+    padding: var(--space-md);
+  }
+
+  .drawer-title h3 {
+    font-size: 1.1rem;
+  }
+
+  .drawer-content {
+    padding: var(--space-md);
+  }
+
+  .detail-item {
+    gap: var(--space-sm);
+  }
+
+  .detail-item strong {
+    font-size: 0.85rem;
+  }
+
+  .detail-item p {
+    font-size: 0.9rem;
+  }
+
+  .directions-btn {
+    padding: var(--space-sm) var(--space-md);
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .modern-ev-search {
+    padding-top: 60px;
+  }
+
+  .search-sidebar {
+    height: calc(100vh - 60px);
+  }
+
+  .sidebar-toggle {
+    top: 80px;
+    left: var(--space-sm);
+    width: 40px;
+    height: 40px;
+  }
+
+  .sidebar-header h2 {
+    font-size: 1.1rem;
+  }
+
+  .form-group label {
+    font-size: 0.85rem;
+  }
+
+  .modern-input {
+    font-size: 0.9rem;
+  }
+
+  .search-btn {
+    font-size: 0.9rem;
+  }
+
+  .stations-list h3 {
+    font-size: 1rem;
+  }
+
+  .station-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .station-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .station-drawer {
+    max-height: 80vh;
+  }
+
+  .drawer-title h3 {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar-toggle {
+    width: 36px;
+    height: 36px;
+  }
+
+  .close-btn {
+    width: 28px;
+    height: 28px;
   }
 }
 

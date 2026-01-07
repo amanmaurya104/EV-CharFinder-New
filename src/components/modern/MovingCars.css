@@ -234,5 +234,41 @@
     width: 60px;
     height: 30px;
   }
+
+  .moving-car.car::before {
+    font-size: 14px;
+    top: 6px;
+    left: 10px;
+  }
+
+  .moving-car.suv::before {
+    font-size: 16px;
+    top: 4px;
+    left: 8px;
+  }
+
+  .moving-car.truck::before {
+    font-size: 18px;
+    top: 3px;
+    left: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .moving-car {
+    width: 40px;
+    height: 20px;
+    opacity: 0.4;
+  }
+
+  .moving-car.suv {
+    width: 45px;
+    height: 22px;
+  }
+
+  .moving-car.truck {
+    width: 50px;
+    height: 24px;
+  }
 }
 

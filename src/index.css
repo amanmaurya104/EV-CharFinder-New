@@ -68,3 +68,37 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--secondary-color);
 }
+
+/* Responsive Typography */
+@media (max-width: 768px) {
+  body {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+
+  h2 {
+    font-size: clamp(1.75rem, 6vw, 2.5rem);
+  }
+
+  h3 {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
+
+  h4 {
+    font-size: clamp(1.25rem, 4vw, 1.5rem);
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+}
