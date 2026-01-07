@@ -5,14 +5,9 @@
     <title>EV CharFinder</title>
     <script type="text/javascript">
       // Single Page Apps for GitHub Pages
-      // https://github.com/rafgraph/spa-github-pages
-      // This script takes the current url and converts the path and query
-      // string into just a query string, and then redirects the browser
-      // to the new url with only a query string and hash fragment,
-      // e.g., https://amanmaurya104.github.io/EV-CharFinder-New/?/path/to/page
-      
+      // This script automatically redirects 404s to index.html
+      // which allows React Router to handle client-side routing
       var pathSegmentsToKeep = 1;
-
       var l = window.location;
       l.replace(
         l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
