@@ -5,11 +5,11 @@
   right: 0;
   z-index: 1000;
   padding: var(--space-md) 0;
-  transition: all var(--transition-base);
-  background: rgba(10, 14, 39, 0.1);
+  /* transition: all var(--transition-base); */
+  /* background: rgba(10, 14, 39, 0.1); */
   /* backdrop-filter: blur(20px); */
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  /* border-bottom: 1px solid rgba(255, 255, 255, 0.05); */
 }
 
 .modern-navbar.scrolled {
@@ -161,17 +161,22 @@
 }
 
 .mobile-menu {
-  position: absolute;
-  top: 100%;
+  position: fixed;
+  top: 70px;
   left: 0;
   right: 0;
   background: rgba(10, 14, 39, 0.98);
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-top: 1px solid var(--border-secondary);
   padding: var(--space-md);
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
+  box-shadow: var(--shadow-lg);
+  z-index: 999;
+  max-height: calc(100vh - 70px);
+  overflow-y: auto;
 }
 
 .mobile-nav-link {
@@ -208,14 +213,21 @@
   .navbar-container {
     padding: 0 var(--space-md);
     gap: var(--space-md);
+    position: relative;
   }
 
   .navbar-links {
     display: none;
   }
 
+  .navbar-actions {
+    display: flex;
+    align-items: center;
+  }
+
   .mobile-menu-toggle {
     display: flex;
+    z-index: 1001;
   }
 
   .brand-logo {
@@ -224,6 +236,10 @@
 
   .logo-icon {
     font-size: 1.75rem;
+  }
+
+  .mobile-menu {
+    top: 60px;
   }
 }
 
@@ -242,22 +258,64 @@
   }
 
   .mobile-menu {
+    top: 55px;
     padding: var(--space-sm);
   }
 
   .mobile-nav-link {
     padding: var(--space-sm) var(--space-md);
     font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .mobile-menu-toggle {
+    padding: var(--space-xs);
+  }
+
+  .mobile-menu-toggle span {
+    width: 22px;
   }
 }
 
 @media (max-width: 480px) {
+  .modern-navbar {
+    padding: var(--space-xs) 0;
+  }
+
+  .navbar-container {
+    padding: 0 var(--space-xs);
+  }
+
   .brand-logo {
-    font-size: 1rem;
+    font-size: 0.95rem;
+    gap: 4px;
+  }
+
+  .logo-icon {
+    font-size: 1.25rem;
   }
 
   .logo-text {
+    font-size: 0.85rem;
+  }
+
+  .mobile-menu {
+    top: 50px;
+    padding: var(--space-xs) var(--space-sm);
+  }
+
+  .mobile-nav-link {
+    padding: var(--space-xs) var(--space-sm);
     font-size: 0.9rem;
+  }
+
+  .mobile-menu-toggle {
+    padding: 6px;
+  }
+
+  .mobile-menu-toggle span {
+    width: 20px;
+    height: 2px;
   }
 }
 

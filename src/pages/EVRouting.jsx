@@ -27,14 +27,15 @@ const EVRouting = () => {
           const servicesScript = document.createElement('script');
           servicesScript.src = 'https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/5.36.1/services/services-web.min.js';
           servicesScript.onload = () => {
+            const baseUrl = import.meta.env.BASE_URL;
             const chargingScript = document.createElement('script');
-            chargingScript.src = '/chargingAvailability.js';
+            chargingScript.src = `${baseUrl}chargingAvailability.js`;
             chargingScript.onload = () => {
               const routeScript = document.createElement('script');
-              routeScript.src = '/calculateLongDistanceEVRoute.js';
+              routeScript.src = `${baseUrl}calculateLongDistanceEVRoute.js`;
               routeScript.onload = () => {
                 const modelScript = document.createElement('script');
-                modelScript.src = '/ev_model.js';
+                modelScript.src = `${baseUrl}ev_model.js`;
                 modelScript.onload = initializeMap;
                 document.body.appendChild(modelScript);
               };

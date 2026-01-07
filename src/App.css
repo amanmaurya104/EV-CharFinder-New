@@ -3,6 +3,8 @@
   position: relative;
   background: var(--bg-primary);
   overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
 }
 
 /* Animated background particles and vehicles */

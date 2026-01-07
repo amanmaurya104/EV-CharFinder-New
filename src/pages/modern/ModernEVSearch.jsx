@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, MapPin, Zap, X, Navigation, Clock, Battery } from 'lucide-react';
+import { Search, MapPin, Zap, X, Navigation, Clock, Battery, Locate } from 'lucide-react';
 import './ModernEVSearch.css';
 
 const ModernEVSearch = () => {
@@ -13,6 +13,8 @@ const ModernEVSearch = () => {
   const [stations, setStations] = useState([]);
   const [selectedStation, setSelectedStation] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [isGettingLocation, setIsGettingLocation] = useState(false);
+  const [currentLocation, setCurrentLocation] = useState(null);
 
   useEffect(() => {
     const loadTomTom = () => {
@@ -31,7 +33,7 @@ const ModernEVSearch = () => {
           servicesScript.src = 'https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/5.36.1/services/services-web.min.js';
           servicesScript.onload = () => {
             const chargingScript = document.createElement('script');
-            chargingScript.src = '/chargingAvailability.js';
+            chargingScript.src = `${import.meta.env.BASE_URL}chargingAvailability.js`;
             chargingScript.onload = initializeMap;
             document.body.appendChild(chargingScript);
           };
@@ -75,6 +77,88 @@ const ModernEVSearch = () => {
     markersRef.current = [];
     setStations([]);
     setSelectedStation(null);
+    setCurrentLocation(null);
+  };
+
+  const getCurrentLocation = () => {
+    if (!navigator.geolocation) {
+      alert('Geolocation is not supported by your browser.');
+      return;
+    }
+
+    setIsGettingLocation(true);
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const { latitude, longitude } = position.coords;
+        const coords = { lat: latitude, lng: longitude };
+        
+        setCurrentLocation(coords);
+        setLocation(`${latitude.toFixed(4)}, ${longitude.toFixed(4)}`);
+        
+        // Fly to current location
+        if (mapInstance.current && mapInstance.current.loaded()) {
+          mapInstance.current.flyTo({
+            center: [longitude, latitude],
+            zoom: 14
+          });
+
+          // Add a marker for current location
+          const currentMarker = new window.tt.Marker({ 
+            color: '#39ff14',
+            scale: 1.2
+          })
+            .setLngLat([longitude, latitude])
+            .setPopup(new window.tt.Popup({ offset: 10 })
+              .setHTML('<div class="popup-content"><h3>Your Location</h3><p>Current position</p></div>'))
+            .addTo(mapInstance.current);
+          
+          markersRef.current.push(currentMarker);
+
+          // Search for stations near current location
+          try {
+            const radius = parseFloat(distance) * 1000;
+            const stationResults = await window.tt.services.categorySearch({
+              key: 'btVdXlLhF1rgfMqkkAZv8aWClICR4ruk',
+              query: 'electric vehicle station',
+              center: coords,
+              radius: radius,
+              limit: 100
+            }).go();
+
+            createMarkers(stationResults);
+          } catch (error) {
+            alert('Error finding stations: ' + error.message);
+          }
+        }
+        
+        setIsGettingLocation(false);
+      },
+      (error) => {
+        setIsGettingLocation(false);
+        let errorMessage = 'Error getting location: ';
+        switch(error.code) {
+          case error.PERMISSION_DENIED:
+            errorMessage += 'Permission denied. Please enable location access.';
+            break;
+          case error.POSITION_UNAVAILABLE:
+            errorMessage += 'Location information unavailable.';
+            break;
+          case error.TIMEOUT:
+            errorMessage += 'Location request timed out.';
+            break;
+          default:
+            errorMessage += 'Unknown error occurred.';
+            break;
+        }
+        alert(errorMessage);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0
+      }
+    );
   };
 
   const findLocation = async () => {
@@ -188,9 +272,9 @@ const ModernEVSearch = () => {
         {sidebarOpen && (
           <motion.div
             className="search-sidebar glass"
-            initial={{ x: -400 }}
-            animate={{ x: 0 }}
-            exit={{ x: -400 }}
+            initial={{ x: window.innerWidth <= 768 ? 0 : -400, y: window.innerWidth <= 768 ? '100%' : 0 }}
+            animate={{ x: 0, y: 0 }}
+            exit={{ x: window.innerWidth <= 768 ? 0 : -400, y: window.innerWidth <= 768 ? '100%' : 0 }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
           >
             <div className="sidebar-header">
@@ -238,9 +322,29 @@ const ModernEVSearch = () => {
               </div>
 
               <motion.button
+                className="current-location-btn"
+                onClick={getCurrentLocation}
+                disabled={isGettingLocation || isSearching}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                {isGettingLocation ? (
+                  <>
+                    <div className="spinner" />
+                    Getting Location...
+                  </>
+                ) : (
+                  <>
+                    <Locate size={18} />
+                    Use Current Location
+                  </>
+                )}
+              </motion.button>
+
+              <motion.button
                 className="search-btn"
                 onClick={findLocation}
-                disabled={isSearching || !location}
+                disabled={isSearching || isGettingLocation || !location}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -266,45 +370,6 @@ const ModernEVSearch = () => {
                 </button>
               )}
             </div>
-
-            {/* Stations List */}
-            {stations.length > 0 && (
-              <div className="stations-list">
-                <h3>{stations.length} Stations Found</h3>
-                <div className="stations-scroll">
-                  {stations.map((station) => (
-                    <motion.div
-                      key={station.id}
-                      className={`station-card ${selectedStation?.id === station.id ? 'active' : ''}`}
-                      onClick={() => {
-                        setSelectedStation(station);
-                        mapInstance.current?.flyTo({
-                          center: [station.position.lng, station.position.lat],
-                          zoom: 15
-                        });
-                      }}
-                      whileHover={{ scale: 1.02, x: 4 }}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                    >
-                      <div className="station-icon">
-                        <Zap size={20} />
-                      </div>
-                      <div className="station-info">
-                        <h4>{station.name}</h4>
-                        <p className="station-address">{station.address}</p>
-                        <div className="station-meta">
-                          <span>
-                            <Navigation size={14} />
-                            {station.distance} km
-                          </span>
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            )}
           </motion.div>
         )}
       </AnimatePresence>

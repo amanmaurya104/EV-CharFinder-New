@@ -50,7 +50,7 @@ const Traffic = () => {
             searchBoxScript.src = 'https://api.tomtom.com/maps-sdk-for-web/cdn/plugins/SearchBox/2.23.1/SearchBox-web.js';
             searchBoxScript.onload = () => {
               const trafficScript = document.createElement('script');
-              trafficScript.src = '/traffic.js';
+              trafficScript.src = `${import.meta.env.BASE_URL}traffic.js`;
               trafficScript.onload = initializeMap;
               document.body.appendChild(trafficScript);
             };

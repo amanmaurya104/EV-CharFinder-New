@@ -21,26 +21,29 @@
   position: fixed;
   top: 80px;
   left: 0;
-  width: 400px;
-  height: calc(100vh - 80px);
+  width: 280px;
+  height: auto;
+  max-height: calc(100vh - 80px);
   z-index: 100;
-  overflow-y: auto;
+  overflow: visible;
   border-right: 1px solid var(--border-secondary);
   background: var(--bg-secondary);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--space-lg);
+  padding: var(--space-sm) var(--space-md);
   border-bottom: 1px solid var(--border-secondary);
 }
 
 .sidebar-header h2 {
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   font-weight: 700;
   background: var(--gradient-electric);
   -webkit-background-clip: text;
@@ -49,8 +52,8 @@
 }
 
 .close-btn {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: var(--radius-full);
   background: var(--bg-tertiary);
   border: 1px solid var(--border-secondary);
@@ -69,34 +72,35 @@
 }
 
 .routing-form {
-  padding: var(--space-lg);
+  padding: var(--space-md);
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
+  gap: var(--space-sm);
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
+  gap: 4px;
 }
 
 .form-group label {
   display: flex;
   align-items: center;
-  gap: var(--space-xs);
-  font-size: 0.9rem;
+  gap: 6px;
+  font-size: 0.85rem;
   font-weight: 600;
   color: var(--text-secondary);
+  margin-bottom: 2px;
 }
 
 .modern-input {
-  padding: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
   background: var(--bg-tertiary);
   border: 1px solid var(--border-secondary);
   border-radius: var(--radius-md);
   color: var(--text-primary);
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-family: var(--font-primary);
   transition: all var(--transition-base);
 }
@@ -111,14 +115,60 @@
   color: var(--text-tertiary);
 }
 
+.input-with-button {
+  display: flex;
+  gap: var(--space-xs);
+  align-items: stretch;
+}
+
+.input-with-button .modern-input {
+  flex: 1;
+}
+
+.current-location-btn-small {
+  padding: var(--space-sm);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  color: var(--electric-blue);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-base);
+  flex-shrink: 0;
+  min-width: 40px;
+}
+
+.current-location-btn-small:hover:not(:disabled) {
+  background: var(--bg-elevated);
+  border-color: var(--electric-blue);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+  color: var(--electric-cyan);
+}
+
+.current-location-btn-small:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.spinner-small {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(0, 212, 255, 0.3);
+  border-top-color: var(--electric-blue);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
 .route-btn {
-  padding: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
   background: var(--gradient-electric);
   color: var(--text-primary);
   border: none;
   border-radius: var(--radius-md);
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.9rem;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -126,7 +176,7 @@
   gap: var(--space-sm);
   transition: all var(--transition-base);
   box-shadow: var(--shadow-electric);
-  margin-top: var(--space-sm);
+  margin-top: var(--space-xs);
 }
 
 .route-btn:hover:not(:disabled) {
@@ -152,14 +202,16 @@
 }
 
 .clear-btn {
-  padding: var(--space-sm) var(--space-md);
+  padding: var(--space-xs) var(--space-sm);
   background: transparent;
   color: var(--text-secondary);
   border: 1px solid var(--border-secondary);
   border-radius: var(--radius-md);
   font-weight: 500;
+  font-size: 0.85rem;
   cursor: pointer;
   transition: all var(--transition-base);
+  margin-top: 4px;
 }
 
 .clear-btn:hover {
@@ -169,8 +221,8 @@
 
 /* Route Summary */
 .route-summary {
-  margin: var(--space-lg);
-  padding: var(--space-lg);
+  margin: var(--space-md);
+  padding: var(--space-md);
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-secondary);
 }
@@ -229,7 +281,7 @@
 /* Responsive Design */
 @media (max-width: 968px) {
   .routing-sidebar {
-    width: 350px;
+    width: 280px;
   }
 
   .sidebar-toggle {
@@ -244,48 +296,72 @@
 
   .routing-sidebar {
     width: 100%;
-    height: calc(100vh - 70px);
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-  }
-
-  .routing-sidebar.open {
-    transform: translateX(0);
+    max-height: 60vh;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-right: none;
+    border-top: 1px solid var(--border-secondary);
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
   }
 
   .sidebar-header {
-    padding: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
   }
 
   .sidebar-header h2 {
-    font-size: 1.25rem;
-  }
-
-  .routing-form {
-    padding: var(--space-md);
-  }
-
-  .modern-input {
-    font-size: 0.95rem;
-    padding: var(--space-sm) var(--space-md);
-  }
-
-  .route-btn {
-    padding: var(--space-sm) var(--space-md);
-    font-size: 0.95rem;
-  }
-
-  .route-summary {
-    margin: var(--space-md);
-    padding: var(--space-md);
-  }
-
-  .summary-header h3 {
     font-size: 1rem;
   }
 
+  .routing-form {
+    padding: var(--space-sm) var(--space-md);
+    gap: var(--space-xs);
+  }
+
+  .form-group {
+    gap: 4px;
+  }
+
+  .form-group label {
+    font-size: 0.8rem;
+    margin-bottom: 2px;
+  }
+
+  .modern-input {
+    font-size: 0.85rem;
+    padding: var(--space-xs) var(--space-sm);
+  }
+
+  .route-btn {
+    padding: var(--space-xs) var(--space-sm);
+    font-size: 0.85rem;
+    margin-top: var(--space-xs);
+  }
+
+  .clear-btn {
+    padding: 6px var(--space-xs);
+    font-size: 0.8rem;
+    margin-top: 4px;
+  }
+
+  .close-btn {
+    width: 24px;
+    height: 24px;
+  }
+
+  .route-summary {
+    margin: var(--space-sm) var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .summary-header h3 {
+    font-size: 0.95rem;
+  }
+
   .summary-line {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     padding: var(--space-xs);
   }
 }
@@ -296,7 +372,9 @@
   }
 
   .routing-sidebar {
-    height: calc(100vh - 60px);
+    max-height: auto;
+    top: auto;
+    bottom: 0;
   }
 
   .sidebar-toggle {
@@ -306,33 +384,53 @@
     height: 40px;
   }
 
+  .sidebar-header {
+    padding: var(--space-xs) var(--space-sm);
+  }
+
   .sidebar-header h2 {
-    font-size: 1.1rem;
-  }
-
-  .form-group label {
-    font-size: 0.85rem;
-  }
-
-  .modern-input {
-    font-size: 0.9rem;
-  }
-
-  .route-btn {
-    font-size: 0.9rem;
-  }
-
-  .route-summary {
-    margin: var(--space-sm);
-    padding: var(--space-sm);
-  }
-
-  .summary-header h3 {
     font-size: 0.95rem;
   }
 
+  .routing-form {
+    padding: var(--space-xs) var(--space-sm);
+  }
+
+  .form-group label {
+    font-size: 0.75rem;
+  }
+
+  .modern-input {
+    font-size: 0.8rem;
+    padding: 8px var(--space-xs);
+  }
+
+  .route-btn {
+    font-size: 0.8rem;
+    padding: 8px var(--space-xs);
+  }
+
+  .clear-btn {
+    font-size: 0.75rem;
+    padding: 6px var(--space-xs);
+  }
+
+  .close-btn {
+    width: 22px;
+    height: 22px;
+  }
+
+  .route-summary {
+    margin: var(--space-xs) var(--space-sm);
+    padding: var(--space-xs) var(--space-sm);
+  }
+
+  .summary-header h3 {
+    font-size: 0.9rem;
+  }
+
   .summary-line {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
   }
 }
 
@@ -343,8 +441,34 @@
   }
 
   .close-btn {
-    width: 28px;
-    height: 28px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .sidebar-header {
+    padding: 8px var(--space-xs);
+  }
+
+  .sidebar-header h2 {
+    font-size: 0.9rem;
+  }
+
+  .routing-form {
+    padding: 8px var(--space-xs);
+  }
+
+  .form-group label {
+    font-size: 0.7rem;
+  }
+
+  .modern-input {
+    font-size: 0.75rem;
+    padding: 6px 8px;
+  }
+
+  .route-btn {
+    font-size: 0.75rem;
+    padding: 6px 8px;
   }
 }
 

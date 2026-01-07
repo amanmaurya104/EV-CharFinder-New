@@ -16,6 +16,28 @@ const ModernNavbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (mobileMenuOpen && !event.target.closest('.modern-navbar')) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    if (mobileMenuOpen) {
+      document.addEventListener('click', handleClickOutside);
+      // Prevent body scroll when menu is open
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
   // Normalize pathname by removing basename for comparison
   const normalizePath = (pathname) => {
     const basename = '/EV-CharFinder-New';
@@ -29,7 +51,7 @@ const ModernNavbar = () => {
     { path: '/', label: 'Home' },
     { path: '/search', label: 'Find Stations' },
     { path: '/routing', label: 'Plan Trip' },
-    { path: '/traffic', label: 'Traffic' },
+    // { path: '/traffic', label: 'Traffic' },
   ];
 
   return (
@@ -80,32 +102,12 @@ const ModernNavbar = () => {
           })}
         </div>
 
-        {/* <div className="navbar-actions">
-          {isLoggedIn ? (
-            <motion.button
-              className="btn-logout"
-              onClick={onLogout}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Logout
-            </motion.button>
-          ) : (
-            <Link to="/login">
-              <motion.button
-                className="btn-primary"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Sign In
-              </motion.button>
-            </Link>
-          )}
-
+        <div className="navbar-actions">
           <button
             className="mobile-menu-toggle"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
+            aria-expanded={mobileMenuOpen}
           >
             <motion.span
               animate={mobileMenuOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
@@ -120,7 +122,7 @@ const ModernNavbar = () => {
               transition={{ duration: 0.3 }}
             />
           </button>
-        </div> */}
+        </div>
       </div>
 
       <AnimatePresence>

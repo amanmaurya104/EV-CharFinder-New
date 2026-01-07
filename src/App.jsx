@@ -10,7 +10,7 @@ import './App.css';
 const Home = lazy(() => import('./pages/modern/ModernHome'));
 const EVSearch = lazy(() => import('./pages/modern/ModernEVSearch'));
 const EVRouting = lazy(() => import('./pages/modern/ModernEVRouting'));
-const Traffic = lazy(() => import('./pages/Traffic'));
+const Traffic = lazy(() => import('./pages/modern/ModernTraffic'));
 
 function App() {
   return (

@@ -29,7 +29,7 @@ const EVSearch = () => {
           servicesScript.src = 'https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/5.36.1/services/services-web.min.js';
           servicesScript.onload = () => {
             const chargingScript = document.createElement('script');
-            chargingScript.src = '/chargingAvailability.js';
+            chargingScript.src = `${import.meta.env.BASE_URL}chargingAvailability.js`;
             chargingScript.onload = initializeMap;
             document.body.appendChild(chargingScript);
           };
