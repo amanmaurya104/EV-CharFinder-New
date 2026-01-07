@@ -48,7 +48,7 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
         <div className="container">
           <Link to="/" className="navbar-brand">
             <motion.img
-              src="/images/logo.png"
+              src={`${import.meta.env.BASE_URL}images/logo.png`}
               alt="Logo"
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300 }}

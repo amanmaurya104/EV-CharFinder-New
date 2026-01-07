@@ -1,27 +1,12 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import './Home.css';
 
 const Home = () => {
-  const navigate = useNavigate();
 
   useEffect(() => {
-    const showWelcomeBack = () => {
-      if (localStorage.getItem('isLoggedIn') === 'true') {
-        const username = localStorage.getItem('username');
-        Swal.fire({
-          title: 'Welcome Back!',
-          text: username ? `Good to see you again, ${username}!` : 'Good to see you again!',
-          icon: 'success',
-          timer: 2000,
-          showConfirmButton: false
-        });
-      }
-    };
-
     const showCreatorAlert = () => {
       if (!localStorage.getItem('creatorAlertShown')) {
         Swal.fire({
@@ -35,36 +20,17 @@ const Home = () => {
       }
     };
 
-    showWelcomeBack();
     showCreatorAlert();
   }, []);
 
-  const checkLogin = (e) => {
-    if (localStorage.getItem('isLoggedIn') !== 'true') {
-      e.preventDefault();
-      Swal.fire({
-        title: 'Access Denied!',
-        text: 'Please login to access this feature',
-        icon: 'warning',
-        confirmButtonText: 'Go to Login',
-        confirmButtonColor: '#3085d6'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          navigate('/login');
-        }
-      });
-      return false;
-    }
-    return true;
-  };
-
+  const baseUrl = import.meta.env.BASE_URL;
   const services = [
     {
       id: 1,
       title: 'Search Stations',
       description: 'Find nearby charging stations and check available slots in real-time.',
       icon: 'fas fa-charging-station',
-      image: '/images/circle1.jpg',
+      image: `${baseUrl}images/circle1.jpg`,
       link: '/search',
       delay: 0.1
     },
@@ -73,7 +39,7 @@ const Home = () => {
       title: 'Finding Route',
       description: 'Search your destination path in the simplest way from your current location.',
       icon: 'fas fa-route',
-      image: '/images/route1.jpg',
+      image: `${baseUrl}images/route1.jpg`,
       link: '/routing',
       delay: 0.3
     },
@@ -82,7 +48,7 @@ const Home = () => {
       title: 'Traffic Detector',
       description: 'Get real-time traffic information on your route to the destination.',
       icon: 'fas fa-traffic-light',
-      image: '/images/circle3.jpg',
+      image: `${baseUrl}images/circle3.jpg`,
       link: '/traffic',
       delay: 0.5
     }
@@ -109,7 +75,7 @@ const Home = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
-                <img src="/images/bg.jpg" alt="EV Charging" className="img-fluid hero-image" />
+                <img src={`${baseUrl}images/bg.jpg`} alt="EV Charging" className="img-fluid hero-image" />
               </motion.div>
               <motion.div
                 className="col-lg-6"
@@ -205,7 +171,6 @@ const Home = () => {
                     <Link
                       to={service.link}
                       className="custom-btn btn"
-                      onClick={checkLogin}
                     >
                       {service.id === 1 ? 'Search Now' : service.id === 2 ? 'Find Route' : 'Detect Traffic'}
                     </Link>
@@ -260,7 +225,7 @@ const Home = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
-                <img src="/images/first.jpg" alt="Stations" className="img-fluid rounded section-image" />
+                <img src={`${baseUrl}images/first.jpg`} alt="Stations" className="img-fluid rounded section-image" />
               </motion.div>
             </div>
           </div>
@@ -286,7 +251,7 @@ const Home = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
               >
-                <img src="/images/stations available.png" alt="Ports" className="img-fluid rounded section-image" />
+                <img src={`${baseUrl}images/stations available.png`} alt="Ports" className="img-fluid rounded section-image" />
               </motion.div>
               <motion.div
                 className="col-lg-6"
@@ -322,7 +287,7 @@ const Home = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
               >
-                <img src="/images/about.gif" alt="About" className="img-fluid rounded section-image" />
+                <img src={`${baseUrl}images/about.gif`} alt="About" className="img-fluid rounded section-image" />
               </motion.div>
               <motion.div
                 className="col-lg-6"

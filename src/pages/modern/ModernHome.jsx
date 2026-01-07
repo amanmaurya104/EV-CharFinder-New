@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
   MapPin, 
@@ -16,7 +15,6 @@ import TypingEffect from '../../components/modern/TypingEffect';
 import './ModernHome.css';
 
 const ModernHome = () => {
-  const navigate = useNavigate();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -76,12 +74,6 @@ const ModernHome = () => {
     { value: '99.9%', label: 'Uptime', icon: Shield }
   ];
 
-  const checkLogin = (e, path) => {
-    if (localStorage.getItem('isLoggedIn') !== 'true') {
-      e.preventDefault();
-      navigate('/login');
-    }
-  };
 
   return (
     <motion.div
@@ -127,7 +119,7 @@ const ModernHome = () => {
               initial={{ opacity: 1, y: 0 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              <Link to="/search" onClick={(e) => checkLogin(e, '/search')}>
+              <Link to="/search">
                 <motion.button
                   className="cta-primary"
                   whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(0, 212, 255, 0.6)' }}
@@ -138,7 +130,7 @@ const ModernHome = () => {
                 </motion.button>
               </Link>
               
-              <Link to="/routing" onClick={(e) => checkLogin(e, '/routing')}>
+              <Link to="/routing">
                 <motion.button
                   className="cta-secondary"
                   whileHover={{ scale: 1.05 }}
@@ -182,11 +174,13 @@ const ModernHome = () => {
           <div className="features-grid">
             {features.map((feature, index) => {
               const Icon = feature.icon;
+              // Use base URL for GitHub Pages compatibility
+              const baseUrl = import.meta.env.BASE_URL;
               const imagePaths = [
-                '/images/stations.jpg',
-                '/images/route1.jpg',
-                '/images/traffic.jpg',
-                '/images/power.jpg'
+                `${baseUrl}images/stations.jpg`,
+                `${baseUrl}images/route1.jpg`,
+                `${baseUrl}images/traffic.jpg`,
+                `${baseUrl}images/power.jpg`
               ];
               return (
                 <motion.div

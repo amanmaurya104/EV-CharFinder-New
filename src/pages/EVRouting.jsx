@@ -258,7 +258,7 @@ const EVRouting = () => {
       </div>
       <div id="summary" className="summary">{summary}</div>
       <Link to="/" className="home-button">
-        <img src="/images/logo11.jpg" alt="Home" />
+        <img src={`${import.meta.env.BASE_URL}images/logo11.jpg`} alt="Home" />
       </Link>
     </div>
   );
