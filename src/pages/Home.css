@@ -1,0 +1,225 @@
+.home-page {
+  position: relative;
+  min-height: 100vh;
+  background: transparent;
+}
+
+.content-wrapper {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+  min-height: 100vh;
+}
+
+.hero-section {
+  padding: 8rem 0 4rem;
+  background: transparent;
+  position: relative;
+}
+
+.hero-title {
+  font-size: 3rem;
+  color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 3rem;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.hero-image {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.hero-image:hover {
+  transform: scale(1.02);
+}
+
+.hero-content {
+  padding: 2rem;
+}
+
+.hero-content .lead {
+  font-size: 1.2rem;
+  color: var(--text-dark);
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.features p {
+  color: var(--text-dark);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.features p i {
+  color: var(--accent-color);
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.charging-locations {
+  color: var(--text-dark);
+  font-size: 1rem;
+  margin-top: 1.5rem;
+}
+
+.charging-locations span {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.charging-locations i {
+  color: var(--accent-color);
+  margin-right: 0.3rem;
+}
+
+.services-section {
+  background: transparent;
+}
+
+.service-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border: 4px solid white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.stations-section {
+  background: transparent;
+}
+
+.ports-section {
+  background: transparent;
+}
+
+.about-section {
+  background: transparent;
+  color: white;
+}
+
+.about-section .section-title {
+  color: white;
+}
+
+.about-section p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.section-image {
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.section-image:hover {
+  transform: scale(1.05);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -15px;
+}
+
+.col-lg-4,
+.col-lg-6 {
+  padding: 0 15px;
+  flex: 0 0 100%;
+}
+
+@media (min-width: 992px) {
+  .col-lg-4 {
+    flex: 0 0 33.333333%;
+  }
+
+  .col-lg-6 {
+    flex: 0 0 50%;
+  }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.mt-4 {
+  margin-top: 1.5rem;
+}
+
+.mr-2 {
+  margin-right: 0.5rem;
+}
+
+.ml-3 {
+  margin-left: 1rem;
+}
+
+.d-block {
+  display: block;
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+.rounded {
+  border-radius: 10px;
+}
+
+.rounded-circle {
+  border-radius: 50%;
+}
+
+.text-primary {
+  color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 6rem 0 2rem;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-content {
+    padding: 1rem;
+  }
+
+  .hero-content .lead {
+    font-size: 1rem;
+  }
+
+  .section {
+    padding: 3rem 0;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+}
+
